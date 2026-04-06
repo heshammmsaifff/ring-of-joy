@@ -1,4 +1,3 @@
-// ✅ Server Component — بيجيب البيانات من Supabase
 // export const dynamic = "force-dynamic";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
@@ -6,7 +5,7 @@ import { GiDonut } from "react-icons/gi";
 import { HiArrowLeft, HiHome } from "react-icons/hi";
 import { FiPercent, FiShoppingBag } from "react-icons/fi";
 import { MdGridView } from "react-icons/md";
-import ProductCard from "@/components/ProductCard"; // ✅ Client Component منفصل
+import ProductCard from "@/components/ProductCard";
 
 export default async function CategoryPage({ params }) {
   const { id } = await params;
