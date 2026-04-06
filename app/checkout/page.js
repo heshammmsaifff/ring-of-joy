@@ -108,17 +108,16 @@ export default function CheckoutPage() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <FiCheckCircle className="w-10 h-10 text-green-500" />
           </div>
-          <h2 className="text-3xl font-black text-gray-800 mb-2">
-            تم الطلب! 🎉
-          </h2>
+          <h2 className="text-3xl font-black text-gray-800 mb-2">تم الطلب!</h2>
           <p className="text-gray-400 mb-1 text-sm">رقم طلبك</p>
           <p className="text-2xl font-black text-pink-600 mb-5 tracking-widest">
             #{orderId}
           </p>
           <div className="bg-green-50 border border-green-100 rounded-2xl px-5 py-4 mb-7">
             <div className="flex items-center gap-2 justify-center text-green-700 font-bold text-sm">
-              <MdDeliveryDining className="w-5 h-5" /> الاوردر هيكون وصلك خلال
-              30 دقيقة
+              <MdDeliveryDining className="w-5 h-5" />
+              حد من فريقنا هيتواصل معاك لتأكيد الاوردر
+              <br /> الاوردر هيكون وصلك خلال 30 دقيقة
             </div>
           </div>
           <div className="flex gap-3">
@@ -177,7 +176,7 @@ export default function CheckoutPage() {
             <FiChevronLeft className="w-3.5 h-3.5 rotate-180" />
             <span className="text-gray-600 font-semibold">إتمام الطلب</span>
           </Link>
-          <h1 className="text-4xl font-black text-gray-900">إتمام الطلب 🍩</h1>
+          <h1 className="text-4xl font-black text-gray-900">إتمام الطلب</h1>
           <p className="text-gray-400 mt-1">اكتب بياناتك وهنوصلك في أسرع وقت</p>
         </div>
 
@@ -292,7 +291,9 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-sm text-gray-500">
                 <span>التوصيل</span>
-                <span className="text-green-600 font-bold">مجاني 🎉</span>
+                <span className="text-green-600 font-bold">
+                  بيتحدد وقت تأكيد الاوردر
+                </span>
               </div>
               <div className="flex justify-between font-black text-gray-900 text-xl pt-2 border-t border-gray-100">
                 <span>الإجمالي</span>

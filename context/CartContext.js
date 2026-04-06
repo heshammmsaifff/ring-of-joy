@@ -7,7 +7,6 @@ export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Load from localStorage on mount
   useEffect(() => {
     try {
       const saved = localStorage.getItem("rj_cart");
@@ -15,7 +14,6 @@ export function CartProvider({ children }) {
     } catch {}
   }, []);
 
-  // Persist to localStorage on change
   useEffect(() => {
     localStorage.setItem("rj_cart", JSON.stringify(items));
   }, [items]);
@@ -23,24 +21,21 @@ export function CartProvider({ children }) {
   const addItem = (product) => {
     setItems((prev) => {
       const exists = prev.find((i) => i.id === product.id);
-      if (exists) {
+      if (exists)
         return prev.map((i) =>
           i.id === product.id ? { ...i, qty: i.qty + 1 } : i,
         );
-      }
       return [...prev, { ...product, qty: 1 }];
     });
-    setIsOpen(true); // افتح الـ slider تلقائياً
+    // ✅ مش بيفتح السلة تلقائياً — بيظهر toast بس
   };
 
   const removeItem = (id) =>
     setItems((prev) => prev.filter((i) => i.id !== id));
-
   const updateQty = (id, qty) => {
     if (qty < 1) return removeItem(id);
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, qty } : i)));
   };
-
   const clearCart = () => setItems([]);
 
   const totalItems = items.reduce((s, i) => s + i.qty, 0);

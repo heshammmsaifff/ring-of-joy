@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Cairo } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
+import { ToastProvider } from "@/context/ToastContext";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -22,8 +23,10 @@ export default function RootLayout({ children }) {
         className={`${cairo.className} min-h-screen flex flex-col bg-white text-gray-900 antialiased`}
       >
         <CartProvider>
-          <Navbar />
-          <main className="flex-grow">{children}</main>
+          <ToastProvider>
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+          </ToastProvider>
         </CartProvider>
         <Footer />
       </body>
