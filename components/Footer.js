@@ -11,12 +11,9 @@ import {
 import { FaFacebook, FaTiktok, FaWhatsapp } from "react-icons/fa";
 import { MdDeliveryDining } from "react-icons/md";
 
-// ↓ غيّر الإحداثيات دي لإحداثيات المحل الحقيقية
-const MAP_LAT = 30.0444;
-const MAP_LNG = 31.2357;
-const MAP_ZOOM = 16;
 // رابط Google Maps Embed — غيّره بالرابط الحقيقي من Google Maps
-const MAP_EMBED = `https://maps.google.com/maps?q=${MAP_LAT},${MAP_LNG}&z=${MAP_ZOOM}&output=embed`;
+const MAP_EMBED =
+  "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3237.23541416473!2d31.791585951291342!3d30.725950581577337!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f825000831c131%3A0x59d66b313a1fb24e!2sRING%20OF%20JOY!5e0!3m2!1sen!2sus!4v1775485195208!5m2!1sen!2sus";
 
 const NAV_LINKS = [
   { label: "الرئيسية", href: "/" },
@@ -26,10 +23,26 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL = [
-  { icon: <FiInstagram className="w-4 h-4" />, href: "#", label: "Instagram" },
-  { icon: <FaFacebook className="w-4 h-4" />, href: "#", label: "Facebook" },
-  { icon: <FaTiktok className="w-4 h-4" />, href: "#", label: "TikTok" },
-  { icon: <FaWhatsapp className="w-4 h-4" />, href: "#", label: "WhatsApp" },
+  {
+    icon: <FiInstagram className="w-4 h-4" />,
+    href: "https://www.instagram.com/ring.of.joy_donuts?igsh=dTN3OWkwNXhpZWtz",
+    label: "Instagram",
+  },
+  {
+    icon: <FaFacebook className="w-4 h-4" />,
+    href: "https://www.facebook.com/share/1B3fWmB8dR/",
+    label: "Facebook",
+  },
+  {
+    icon: <FaTiktok className="w-4 h-4" />,
+    href: "https://www.tiktok.com/@ring.of.joy_donuts?_r=1&_t=ZS-95JVcI0AFI0",
+    label: "TikTok",
+  },
+  {
+    icon: <FaWhatsapp className="w-4 h-4" />,
+    href: "https://wa.me/201055961002",
+    label: "WhatsApp",
+  },
 ];
 
 export default function Footer() {
@@ -76,6 +89,7 @@ export default function Footer() {
                   key={i}
                   href={s.href}
                   aria-label={s.label}
+                  target="_blank"
                   className="w-9 h-9 rounded-xl bg-gray-800 hover:bg-pink-500 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
                 >
                   {s.icon}
@@ -115,12 +129,12 @@ export default function Footer() {
                   <FiPhone className="w-3.5 h-3.5 text-pink-400" />
                 </div>
                 <div>
-                  <p className="text-gray-500 text-xs mb-0.5">الهاتف</p>
+                  <p className="text-gray-500 text-xs mb-0.5">موبايل</p>
                   <a
-                    href="tel:+201234567890"
+                    href="tel:+201055961002"
                     className="text-gray-300 hover:text-pink-400 text-sm font-medium transition-colors"
                   >
-                    01234-567-890
+                    01055961002
                   </a>
                 </div>
               </li>
@@ -131,27 +145,27 @@ export default function Footer() {
                 <div>
                   <p className="text-gray-500 text-xs mb-0.5">واتساب</p>
                   <a
-                    href="https://wa.me/201234567890"
+                    href="https://wa.me/201055961002"
                     className="text-gray-300 hover:text-green-400 text-sm font-medium transition-colors"
                   >
-                    01234-567-890
+                    01055961002
                   </a>
                 </div>
               </li>
-              <li className="flex items-start gap-3">
+              {/* <li className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-xl bg-gray-800 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <FiMail className="w-3.5 h-3.5 text-pink-400" />
                 </div>
                 <div>
-                  <p className="text-gray-500 text-xs mb-0.5">البريد</p>
+                  <p className="text-gray-500 text-xs mb-0.5">ايميل</p>
                   <a
-                    href="mailto:hello@royaldonuts.com"
+                    href="mailto:info@ring-of-joy.com"
                     className="text-gray-300 hover:text-pink-400 text-sm font-medium transition-colors"
                   >
-                    hello@royaldonuts.com
+                    info@ring-of-joy.com
                   </a>
                 </div>
-              </li>
+              </li> */}
               <li className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-xl bg-gray-800 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <FiClock className="w-3.5 h-3.5 text-pink-400" />
@@ -159,7 +173,7 @@ export default function Footer() {
                 <div>
                   <p className="text-gray-500 text-xs mb-0.5">مواعيد العمل</p>
                   <p className="text-gray-300 text-sm font-medium">
-                    يومياً من 8 ص — 12 م
+                    يومياً من 9 ص — 2 م
                   </p>
                 </div>
               </li>
@@ -190,13 +204,13 @@ export default function Footer() {
                 allowFullScreen={false}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Royal Donuts Location"
+                title="Ring Of Joy Location"
                 className="grayscale hover:grayscale-0 transition-all duration-500"
               />
             </div>
 
             <a
-              href={`https://www.google.com/maps?q=${MAP_LAT},${MAP_LNG}`}
+              href="https://www.google.com/maps/dir/?api=1&destination=30.7269152,31.7884938"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 flex items-center gap-2 text-pink-400 hover:text-pink-300 text-xs font-bold transition-colors"

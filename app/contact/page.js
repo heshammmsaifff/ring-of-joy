@@ -6,11 +6,8 @@ import { FiMail, FiMapPin, FiClock, FiInstagram } from "react-icons/fi";
 import { FaFacebook, FaTiktok, FaWhatsapp } from "react-icons/fa";
 import { MdDeliveryDining, MdVerified } from "react-icons/md";
 
-const MAP_LAT = 30.0444;
-const MAP_LNG = 31.2357;
-const MAP_ZOOM = 16;
-const MAP_EMBED = `https://maps.google.com/maps?q=${MAP_LAT},${MAP_LNG}&z=${MAP_ZOOM}&output=embed`;
-
+const MAP_EMBED =
+  "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3237.23541416473!2d31.791585951291342!3d30.725950581577337!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f825000831c131%3A0x59d66b313a1fb24e!2sRING%20OF%20JOY!5e0!3m2!1sen!2sus!4v1775485195208!5m2!1sen!2sus";
 const CONTACT_CARDS = [
   {
     icon: <HiPhone className="w-6 h-6" />,
@@ -18,9 +15,9 @@ const CONTACT_CARDS = [
     shadow: "shadow-pink-200",
     bg: "bg-pink-50",
     label: "اتصل بينا",
-    value: "01234-567-890",
+    value: "01055961002",
     sub: "متاحين من 8ص لـ 12م",
-    href: "tel:+201234567890",
+    href: "tel:+201055961002",
     cta: "اتصل دلوقتي",
   },
   {
@@ -29,9 +26,9 @@ const CONTACT_CARDS = [
     shadow: "shadow-green-200",
     bg: "bg-green-50",
     label: "واتساب",
-    value: "01234-567-890",
+    value: "01055961002",
     sub: "رد سريع في دقايق",
-    href: "https://wa.me/201234567890",
+    href: "https://wa.me/201055961002",
     cta: "ابعت رسالة",
   },
   {
@@ -40,9 +37,9 @@ const CONTACT_CARDS = [
     shadow: "shadow-purple-200",
     bg: "bg-violet-50",
     label: "البريد الإلكتروني",
-    value: "hello@royaldonuts.com",
+    value: "info@ring-of-joy.com",
     sub: "بنرد في خلال 24 ساعة",
-    href: "mailto:hello@royaldonuts.com",
+    href: "mailto:info@ring-of-joy.com",
     cta: "ابعت إيميل",
   },
 ];
@@ -50,33 +47,33 @@ const CONTACT_CARDS = [
 const SOCIAL = [
   {
     icon: <FiInstagram className="w-5 h-5" />,
-    href: "#",
+    href: "https://www.instagram.com/ring.of.joy_donuts?igsh=dTN3OWkwNXhpZWtz",
     label: "Instagram",
     color: "hover:bg-pink-500",
   },
   {
     icon: <FaFacebook className="w-5 h-5" />,
-    href: "#",
+    href: "https://www.facebook.com/share/1B3fWmB8dR/",
     label: "Facebook",
     color: "hover:bg-blue-600",
   },
   {
     icon: <FaTiktok className="w-5 h-5" />,
-    href: "#",
+    href: "https://www.tiktok.com/@ring.of.joy_donuts?_r=1&_t=ZS-95JVcI0AFI0",
     label: "TikTok",
     color: "hover:bg-gray-800",
   },
   {
     icon: <FaWhatsapp className="w-5 h-5" />,
-    href: "#",
+    href: "https://wa.me/201055961002",
     label: "WhatsApp",
     color: "hover:bg-green-500",
   },
 ];
 
 const HOURS = [
-  { day: "السبت — الخميس", time: "8:00 ص — 12:00 م" },
-  { day: "الجمعة", time: "10:00 ص — 12:00 م" },
+  { day: "السبت — الخميس", time: "9:00 ص — 12:00 م" },
+  { day: "الجمعة", time: "1:00 م — 12:00 م" },
 ];
 
 export default function ContactPage() {
@@ -215,13 +212,13 @@ export default function ContactPage() {
                 allowFullScreen={false}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Royal Donuts Location"
+                title="Ring Of Joy Location"
                 className="w-full"
               />
             </div>
 
             <a
-              href={`https://www.google.com/maps?q=${MAP_LAT},${MAP_LNG}`}
+              href="https://www.google.com/maps/dir/?api=1&destination=30.7269152,31.7884938"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-2 text-pink-500 hover:text-pink-700 text-sm font-bold transition-colors"
@@ -318,7 +315,7 @@ export default function ContactPage() {
               جاهز تطلب دلوقتي؟
             </h3>
             <p className="text-pink-100 font-light mb-7 max-w-md mx-auto">
-              توصيل سريع في 30 دقيقة — طازج على بابك في أي وقت
+              توصيل سريع في 30 دقيقة — طازة على بابك في أي وقت
             </p>
             <Link
               href="/products"

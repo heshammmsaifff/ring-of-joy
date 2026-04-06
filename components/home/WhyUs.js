@@ -14,7 +14,7 @@ const FEATURES = [
     icon: <GiDonut className="w-7 h-7" />,
     color: "from-amber-400 to-orange-500",
     shadow: "shadow-orange-200",
-    title: "طازج كل يوم",
+    title: "طازة كل يوم",
     desc: "كل يوم الصبح بنعمل دوناتس جديدة من الصفر",
   },
   {
