@@ -1,5 +1,5 @@
 // ✅ Server Component — بيجيب البيانات من Supabase
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { GiDonut } from "react-icons/gi";
