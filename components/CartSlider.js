@@ -167,7 +167,9 @@ export default function CartSlider() {
                 </div>
                 <div className="flex items-center justify-between text-sm text-gray-500">
                   <span>رسوم التوصيل</span>
-                  <span className="text-green-600 font-bold">مجاني 🎉</span>
+                  <span className="text-green-600 font-bold">
+                    يحدد عند تأكيد الاوردر
+                  </span>
                 </div>
                 <div className="flex items-center justify-between font-black text-gray-900 text-lg pt-2 border-t border-gray-100">
                   <span>الإجمالي</span>

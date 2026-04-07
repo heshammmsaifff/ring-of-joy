@@ -31,17 +31,17 @@ const CONTACT_CARDS = [
     href: "https://wa.me/201055961002",
     cta: "ابعت رسالة",
   },
-  {
-    icon: <FiMail className="w-6 h-6" />,
-    color: "from-violet-400 to-purple-500",
-    shadow: "shadow-purple-200",
-    bg: "bg-violet-50",
-    label: "البريد الإلكتروني",
-    value: "info@ring-of-joy.com",
-    sub: "بنرد في خلال 24 ساعة",
-    href: "mailto:info@ring-of-joy.com",
-    cta: "ابعت إيميل",
-  },
+  // {
+  //   icon: <FiMail className="w-6 h-6" />,
+  //   color: "from-violet-400 to-purple-500",
+  //   shadow: "shadow-purple-200",
+  //   bg: "bg-violet-50",
+  //   label: "البريد الإلكتروني",
+  //   value: "info@ring-of-joy.com",
+  //   sub: "بنرد في خلال 24 ساعة",
+  //   href: "mailto:info@ring-of-joy.com",
+  //   cta: "ابعت إيميل",
+  // },
 ];
 
 const SOCIAL = [
@@ -72,8 +72,8 @@ const SOCIAL = [
 ];
 
 const HOURS = [
-  { day: "السبت — الخميس", time: "9:00 ص — 12:00 م" },
-  { day: "الجمعة", time: "1:00 م — 12:00 م" },
+  { day: "السبت — الخميس", time: "9:00 ص — 02:00 ص" },
+  { day: "الجمعة", time: "1:00 م — 02:00 ص" },
 ];
 
 export default function ContactPage() {
@@ -151,7 +151,7 @@ export default function ContactPage() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
         {/* ── Contact Cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16 -mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-16 -mt-2">
           {CONTACT_CARDS.map((card, i) => (
             <a
               key={i}

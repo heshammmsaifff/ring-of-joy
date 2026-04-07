@@ -173,7 +173,7 @@ export default function Footer() {
                 <div>
                   <p className="text-gray-500 text-xs mb-0.5">مواعيد العمل</p>
                   <p className="text-gray-300 text-sm font-medium">
-                    يومياً من 9 ص — 2 م
+                    يومياً من 9 ص — 2 ص
                   </p>
                 </div>
               </li>
