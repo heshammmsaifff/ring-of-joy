@@ -14,6 +14,13 @@ import {
 import { MdDeliveryDining } from "react-icons/md";
 import { HiHome } from "react-icons/hi";
 
+// ======================================================
+// ⚠️ لا تحط التوكن هنا مباشرة — حطه في .env.local
+// NEXT_PUBLIC_TELEGRAM_BOT_TOKEN=your_token_here
+// ======================================================
+const TELEGRAM_TOKEN = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_IDS = ["6187187718", "1709587099"];
+
 const EMPTY_FORM = {
   customer_name: "",
   customer_phone: "",
@@ -21,6 +28,53 @@ const EMPTY_FORM = {
   delivery_address: "",
 };
 
+// ─────────────────────────────────────────────
+// Helper: إرسال إشعار تليجرام لكل المسؤولين
+// ─────────────────────────────────────────────
+async function sendTelegramNotification(orderId, orderData, orderItems) {
+  const itemsList = orderItems
+    .map((i) => `  • ${i.name} × ${i.qty} — ${i.subtotal.toFixed(2)} EGP`)
+    .join("\n");
+
+  const message = `
+🍩 *طلب جديد!* \`#${orderId}\`
+
+👤 *الاسم:* ${orderData.customer_name}
+📞 *الموبايل:* \`${orderData.customer_phone}\`
+📍 *العنوان:* ${orderData.delivery_address}
+
+🛒 *المنتجات:*
+${itemsList}
+
+💰 *الإجمالي:* ${orderData.total_price.toFixed(2)} EGP
+  `.trim();
+
+  const sends = TELEGRAM_CHAT_IDS.map((chatId) =>
+    fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: "Markdown",
+      }),
+    }),
+  );
+
+  const results = await Promise.allSettled(sends);
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      console.error(
+        `Telegram send failed for chat ${TELEGRAM_CHAT_IDS[i]}:`,
+        r.reason,
+      );
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+// Main Component
+// ─────────────────────────────────────────────
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
   const [form, setForm] = useState(EMPTY_FORM);
@@ -60,7 +114,6 @@ export default function CheckoutPage() {
 
     setLoading(true);
     try {
-      // تجهيز مصفوفة المنتجات لإرسالها في حقل jsonb
       const orderItemsData = items.map((item) => ({
         name: item.name,
         qty: item.qty,
@@ -76,9 +129,10 @@ export default function CheckoutPage() {
           : form.delivery_address.trim(),
         total_price: parseFloat(totalPrice.toFixed(2)),
         status: "pending",
-        order_items: orderItemsData, // الحقل الجديد
+        order_items: orderItemsData,
       };
 
+      // 1️⃣ حفظ الطلب في Supabase
       const { data, error } = await supabase
         .from("orders")
         .insert(insertData)
@@ -87,7 +141,12 @@ export default function CheckoutPage() {
 
       if (error) throw error;
 
-      setOrderId(data.id.slice(0, 8).toUpperCase());
+      const shortId = data.id.slice(0, 8).toUpperCase();
+      setOrderId(shortId);
+
+      // 2️⃣ إرسال إشعار تليجرام
+      await sendTelegramNotification(shortId, insertData, orderItemsData);
+
       clearCart();
       setSuccess(true);
     } catch (err) {
@@ -97,7 +156,7 @@ export default function CheckoutPage() {
     }
   };
 
-  // ... باقي كود Success Screen و Empty Cart (بدون تغيير) ...
+  // ─── Success Screen ───────────────────────────────────
   if (success) {
     return (
       <div
@@ -114,10 +173,12 @@ export default function CheckoutPage() {
             #{orderId}
           </p>
           <div className="bg-green-50 border border-green-100 rounded-2xl px-5 py-4 mb-7">
-            <div className="flex items-center gap-2 justify-center text-green-700 font-bold text-sm">
-              <MdDeliveryDining className="w-5 h-5" />
-              حد من فريقنا هيتواصل معاك لتأكيد الاوردر
-              <br /> الاوردر هيكون وصلك خلال 30 دقيقة
+            <div className="flex items-center gap-2 justify-center text-green-700 font-bold text-sm text-center">
+              <MdDeliveryDining className="w-5 h-5 flex-shrink-0" />
+              <span>
+                حد من فريقنا هيتواصل معاك لتأكيد الاوردر
+                <br /> الاوردر هيكون وصلك خلال 30 دقيقة
+              </span>
             </div>
           </div>
           <div className="flex gap-3">
@@ -139,6 +200,7 @@ export default function CheckoutPage() {
     );
   }
 
+  // ─── Empty Cart ───────────────────────────────────────
   if (items.length === 0) {
     return (
       <div
@@ -164,6 +226,7 @@ export default function CheckoutPage() {
     );
   }
 
+  // ─── Main Form ────────────────────────────────────────
   return (
     <div dir="rtl" className="min-h-screen bg-[#FFF5F7] py-10 px-4">
       <div className="max-w-5xl mx-auto">
@@ -181,6 +244,7 @@ export default function CheckoutPage() {
         </div>
 
         <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+          {/* ── Left: Form ── */}
           <div className="space-y-5">
             <FormSection
               title="بياناتك الشخصية"
@@ -243,6 +307,7 @@ export default function CheckoutPage() {
             </FormSection>
           </div>
 
+          {/* ── Right: Order Summary ── */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden sticky top-6">
             <div className="px-5 py-4 border-b border-gray-100 bg-gradient-to-l from-pink-50 to-rose-50">
               <h3 className="font-black text-gray-800 flex items-center gap-2">
@@ -323,7 +388,9 @@ export default function CheckoutPage() {
   );
 }
 
-// Helpers (inputClass, FormSection, Field) تظل كما هي في كودك الأصلي
+// ─────────────────────────────────────────────
+// UI Helpers (JavaScript)
+// ─────────────────────────────────────────────
 function inputClass(error) {
   return `w-full border-[1.5px] rounded-xl px-4 py-3 text-sm text-gray-800 outline-none transition-all font-medium bg-white ${
     error
@@ -331,16 +398,19 @@ function inputClass(error) {
       : "border-pink-100 focus:border-pink-400 focus:shadow-[0_0_0_3px_rgba(244,114,182,0.1)]"
   }`;
 }
+
 function FormSection({ title, icon, children }) {
   return (
     <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
       <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-100 bg-gradient-to-l from-pink-50/50 to-rose-50/50">
-        {icon} <h3 className="font-black text-gray-800 text-sm">{title}</h3>
+        {icon}
+        <h3 className="font-black text-gray-800 text-sm">{title}</h3>
       </div>
       <div className="p-5">{children}</div>
     </div>
   );
 }
+
 function Field({ label, error, children }) {
   return (
     <div className="flex flex-col gap-1.5">
